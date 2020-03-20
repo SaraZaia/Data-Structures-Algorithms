@@ -1,0 +1,44 @@
+import java.util.Hashtable;
+
+
+class a {
+
+// Brut Force => O(N²)
+    public int[] twoSumSolution1(int[] nums, int target) {
+    	int targ = 0;
+    	int[] resu = new int[2];
+    	
+        for (int i = 0; i < nums.length; i++) {
+        	targ = target - nums[i]; 
+			for (int j = i+1; j < nums.length; j++) {
+				if (nums[j] == targ) {
+					resu[0] = i;
+					resu[1] = j;
+				}
+			}
+		}
+        return resu;
+    }
+    
+    
+// Using hashtable / containsKey() complexity is O(1) => O(N)
+    public int[] twoSumSolution2(int[] nums, int target) {
+    	
+    	Hashtable<Integer, Integer> a = new Hashtable<Integer, Integer>();
+    	int[] resu = new int[2];
+
+    	for (int i = 0; i < nums.length; i++) {
+			if (a.isEmpty() || !a.containsKey(target -nums[i])) {
+                a.put(nums[i], i);
+			}
+			else if(a.containsKey(target -nums[i])){
+                resu[1] = i;
+				resu[0] = a.get(target -nums[i]);		
+
+
+			}
+		}
+    	
+    	return resu;
+    }
+}
