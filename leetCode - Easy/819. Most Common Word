@@ -1,0 +1,30 @@
+class Solution {
+    public String mostCommonWord(String paragraph, String[] banned) {
+        
+        String result = "";
+        int intResult = 0;
+        
+        String[] split = paragraph.replaceAll("[^a-zA-Z ]", " " ).toLowerCase().split("\\s+");
+        
+        Map<String, Integer> countWord = new HashMap<>();
+        Set<String> banneds = new HashSet<>();
+        
+        for(String word : banned) banneds.add(word);
+        
+        for (int i =  0; i < split.length; i++)
+        {
+           // System.out.println(split[i]);
+            if (!banneds.contains(split[i])) {
+                countWord.compute(split[i],(k, v) ->(v == null) ? 1 : v+1);
+                
+                if (intResult < countWord.get(split[i])){
+                    intResult = countWord.get(split[i]);
+                    result = split[i];
+
+                }
+            }
+            
+        }
+        return result;
+    }
+}
