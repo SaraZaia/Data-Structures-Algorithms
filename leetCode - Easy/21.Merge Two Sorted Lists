@@ -1,0 +1,88 @@
+
+class ListNode {
+	int val;
+	ListNode next;
+
+	ListNode(int x) {
+		val = x;
+	}
+
+	public void print(){
+
+		ListNode L = this;
+			while (L != null) {
+				System.out.print(L.val + " -> ");
+				L = L.next;
+			}
+	}
+}
+
+public class d {
+	static public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+		ListNode result = new ListNode(-1);
+		ListNode head = result;
+		if (l1 == null && l2 == null)
+			return null;
+		while (l1 != null || l2 != null) {
+			if (l1 == null) {
+				result.next = new ListNode(l2.val);
+				l2 = l2.next;
+			} else if (l2 == null) {
+				result.next = new ListNode(l1.val);
+				l1 = l1.next;
+			}
+
+			else if (l1.val <= l2.val) {
+				result.next = new ListNode(l1.val);
+				l1 = l1.next;
+
+			} else {
+				result.next = new ListNode(l2.val);
+				l2 = l2.next;
+			}
+			result = result.next;
+
+		}
+		return head.next;
+	}
+
+	public static void main(String[] args) {
+		
+		/**
+		 * l1 = 5 -> 6 -> 7 -> 8 -> 9 -> 
+		 * l2= 5 -> 7 -> 9 -> 10 -> 
+		 * --------------------------
+		 * result = 5 -> 5 -> 6 -> 7 -> 7 -> 8 -> 9 -> 9 -> 10 ->
+		 */
+		ListNode lNode5 = new ListNode(5);
+		ListNode lNode6 = new ListNode(6);
+		ListNode lNode7 = new ListNode(7);
+		ListNode lNode8 = new ListNode(8);
+		ListNode lNode9 = new ListNode(9);
+
+		lNode5.next = lNode6;
+		lNode6.next = lNode7;
+		lNode7.next = lNode8;
+		lNode8.next = lNode9;
+
+		ListNode l2Node5 = new ListNode(5);
+		ListNode l2Node7 = new ListNode(7);
+		ListNode l2Node9 = new ListNode(9);
+		ListNode l2Node10 = new ListNode(10);
+
+		l2Node5.next = l2Node7;
+		l2Node7.next = l2Node9;
+		l2Node9.next = l2Node10;
+
+		lNode5.print();
+		System.out.println();
+		l2Node5.print();
+
+		System.out.println();
+		System.out.println("--------------------------");
+		ListNode a = mergeTwoLists(l2Node5, lNode5);
+
+		a.print();
+
+	}
+}
