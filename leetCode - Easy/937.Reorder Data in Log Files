@@ -1,0 +1,44 @@
+import java.util.*;
+
+class logs {
+	String[] result = null;
+	TreeMap<String, String> sortLetter = new TreeMap<String, String>();
+
+	public String[] reorderLogFiles(String[] logs) {
+		
+		result = new String[logs.length];
+		String[] logsSplited;
+		int j = logs.length - 1;
+		int start = 0;
+		// Sorting the letter's Logg
+		for (int i = logs.length - 1; i >= 0; i--) {
+			logsSplited = logs[i].split(" ");
+
+			if (isLetter(logsSplited)) {
+				start = logsSplited[0].length() + 1;
+				sortLetter.put(logs[i].substring(start) + logsSplited[0], logs[i]);
+				System.out.println(logs[i].substring(start));
+			} else {
+				result[j] = logs[i];
+				j--;
+			}
+		}
+
+		List<String> letterLogs = new ArrayList<>(sortLetter.values());
+
+		// Result
+		for (int i = 0; i <= j; i++) {
+			result[i] = letterLogs.get(i);
+		}
+
+		return result;
+	}
+
+	static boolean isLetter(String[] logsSplited) {
+		if (logsSplited[1].substring(0, 1).charAt(0) >= 'a' && logsSplited[0].substring(0, 1).charAt(0) <= 'z')
+			return true;
+
+		return false;
+	}
+
+}
